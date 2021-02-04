@@ -11,6 +11,8 @@ const Canvas = (props) => {
 
   useEffect(() => {
     ctx.current = canvasRef.current.getContext("2d");
+    ctx.current.fillStyle = "#ffffff";
+    ctx.current.fillRect(0, 0, width, height);
   }, []);
 
   const [windowWidth, windowHeight] = useWindowSize(() => {
