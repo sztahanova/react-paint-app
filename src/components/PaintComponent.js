@@ -4,11 +4,16 @@ import Name from "./NameComponent";
 import ColorPicker from "./ColorPickerComponent";
 import Canvas from "./CanvasComponent";
 import RefreshButton from "./RefreshButtonComponent";
-import useWindowSize from './WindowSize';
+import useWindowSize from "./WindowSize";
+import SizePicker from "./SizePickerComponent";
+import InfoButton from "./InfoButtonComponent";
+
+const sizes = [2, 6, 10, 14, 20];
 
 const Paint = () => {
   const [colors, setColors] = useState([]);
   const [activeColor, setActiveColor] = useState();
+  const [activeSize, setActiveSize] = useState(sizes[0]);
   const [windowSizeVisible, setWindowSizeVisible] = useState(false);
 
   const [windowWidth, windowHeight] = useWindowSize(() => {
@@ -32,18 +37,17 @@ const Paint = () => {
       });
   }, []);
 
-  
-
   return (
     <div>
       <header
         ref={headerRef}
         style={{
-          borderTop: `10px solid ${activeColor}`,
+          borderTop: `20px solid ${activeColor}`,
         }}
       >
         <div>
           <Name />
+          <InfoButton />
         </div>
         <div style={{ marginTop: 10 }}>
           <ColorPicker
@@ -51,12 +55,19 @@ const Paint = () => {
             activeColor={activeColor}
             setActiveColor={setActiveColor}
           />
+          <SizePicker
+            sizes={sizes}
+            activeSize={activeSize}
+            setActiveSize={setActiveSize}
+            activeColor={activeColor}
+          />
           <RefreshButton cb={getColors} />
         </div>
       </header>
-      {activeColor && (
+      {activeColor && activeSize && (
         <Canvas
           color={activeColor}
+          lineWidth={activeSize}
           height={window.innerHeight - headerRef.current.offsetHeight}
         />
       )}

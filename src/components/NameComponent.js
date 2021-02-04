@@ -4,7 +4,7 @@ const Name = React.memo(() => {
   const [name, setName] = useState("");
 
   return (
-    <label className="headedr-name">
+    <label className="header-name">
       <input
         value={name}
         onChange={(event) => setName(event.target.value)}
